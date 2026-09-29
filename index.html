@@ -123,7 +123,7 @@ input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3
 .ft{background:var(--paper);border-top:1px solid var(--ln);text-align:center;padding:30px 24px 30px;font-size:12.5px;color:var(--mut);line-height:1.75}
 .ft .flogo{display:block;width:170px;height:auto;margin:0 auto 14px}
 .ft a{color:var(--esp);font-weight:700;text-decoration:none}
-.ft .blogo{display:block;width:62px;height:auto;margin:16px auto 6px}
+.ft .blogo{display:block;width:86px;height:auto;margin:18px auto 8px}
 .eho{display:inline-flex;align-items:center;gap:6px;margin:6px 0 4px}
 .eho svg{width:17px;height:17px}
 .fine{font-size:11px;color:#8b8374;max-width:380px;margin:6px auto 0;line-height:1.55}
@@ -215,8 +215,9 @@ input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3
         <form id="gf" novalidate>
           <div><label for="f-name">Your name</label><input id="f-name" name="name" placeholder="First &amp; last" autocomplete="name" required></div>
           <div><label for="f-email">Email</label><input id="f-email" type="email" name="email" placeholder="you@email.com" autocomplete="email" required></div>
-          <div><label for="f-phone">Mobile <span class="opt">(optional)</span></label><input id="f-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel" pattern="[0-9\s\(\)\+\.\-]{10,}" title="Please enter a 10-digit number, or leave this blank.">
-            <p class="hint">If you share it, I may call or text about your questions. Reply STOP anytime.</p></div>
+          <div><label for="f-phone">Mobile</label><input id="f-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel" required>
+            <p class="hint">I may call or text about your questions. Reply STOP anytime.</p></div>
+          <div><label for="f-addr">Home address</label><input id="f-addr" name="address" placeholder="123 Main St, Brentwood" autocomplete="street-address" required></div>
           <div><label for="f-plan">What&#39;s on your mind?</label>
             <select id="f-plan" name="plans" required>
               <option value="" disabled selected>Choose one</option>
@@ -303,7 +304,7 @@ input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3
     Legacy Real Estate &amp; Associates &middot; 1983 Second Street, Livermore, CA 94550<br>
     <a href="tel:+19253545756">925-354-5756</a> &middot; <a href="mailto:sonia@sonialatifi.com">sonia@sonialatifi.com</a><br>
     <a href="https://sonialatifi.com">sonialatifi.com</a> &middot; <a href="https://www.instagram.com/sonialatifi_realtor/" target="_blank" rel="noopener">@sonialatifi_realtor</a>
-    <img class="blogo" src="assets/logo-legacy.png" alt="Legacy Real Estate &amp; Associates, ERA Real Estate Powered" width="62" height="90">
+    <img class="blogo" src="assets/logo-legacy.png" alt="Legacy Real Estate &amp; Associates, ERA Real Estate Powered" width="86" height="125">
     <span class="eho">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2 1 11h3v11h16V11h3L12 2Zm4 16H8v-2h8v2Zm0-4H8v-2h8v2Z" fill="#6f6656"/></svg>
       Equal Housing Opportunity
@@ -331,15 +332,18 @@ input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3
     document.getElementById("mini").hidden = true;
     document.getElementById("get").scrollIntoView({behavior:"smooth", block:"start"});
   }
+  document.getElementById("f-phone").addEventListener("input", function(){ this.setCustomValidity(""); });
   document.getElementById("mini-go").addEventListener("click", function(){
     setTimeout(function(){ document.getElementById("f-name").focus({preventScroll:true}); }, 450);
   });
   f.addEventListener("submit", function(e){
     e.preventDefault();
+    var ph = document.getElementById("f-phone");
+    ph.setCustomValidity(ph.value.replace(/\D/g, "").length >= 10 ? "" : "Please enter your 10-digit mobile number.");
     if (!f.reportValidity()) return;
     if (sb.disabled) return;
     var d = new FormData(f);
-    var body = ["Name: " + d.get("name"), "Email: " + d.get("email"), "Phone: " + (d.get("phone") || ""), "What's on their mind: " + d.get("plans")].join("\r\n");
+    var body = ["Name: " + d.get("name"), "Email: " + d.get("email"), "Phone: " + d.get("phone"), "Home address: " + d.get("address"), "What's on their mind: " + d.get("plans")].join("\r\n");
     if (d.get("_honey")) { show(true, d, body); return; }
     sb.disabled = true; sb.textContent = "Sending…";
     var ctrl = window.AbortController ? new AbortController() : null;
@@ -348,7 +352,7 @@ input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3
       method: "POST",
       headers: {"Content-Type": "application/json", "Accept": "application/json"},
       body: JSON.stringify({
-        name: d.get("name"), email: d.get("email"), phone: d.get("phone") || "(not given)",
+        name: d.get("name"), email: d.get("email"), phone: d.get("phone"), "Home address": d.get("address"),
         "What's on their mind": d.get("plans"),
         "Came from": "The House Got Quiet guide page",
         _subject: "Empty nester guide request: " + d.get("name"),
