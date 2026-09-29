@@ -69,7 +69,6 @@ label{display:block;font-family:Montserrat,sans-serif;font-size:10.5px;letter-sp
 input,select{width:100%;padding:14px 15px;border:1px solid #d9d1c1;border-radius:11px;font:inherit;font-size:16px;color:var(--ink);background:#fff;-webkit-appearance:none;appearance:none}
 select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233c2f1b' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 15px center;padding-right:40px}
 input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3px rgba(196,161,129,.4)}
-.hint{font-size:12px;color:var(--mut);margin-top:6px;line-height:1.45}
 .hp-f{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
 .btn{display:block;width:100%;margin-top:4px;background:var(--esp);color:#fff;border:none;padding:17px;border-radius:12px;font-family:Montserrat,sans-serif;font-weight:600;font-size:15px;letter-spacing:.03em;cursor:pointer;text-decoration:none;text-align:center;transition:background .15s,transform .1s}
@@ -215,8 +214,7 @@ input:focus,select:focus{outline:none;border-color:var(--esp);box-shadow:0 0 0 3
         <form id="gf" novalidate>
           <div><label for="f-name">Your name</label><input id="f-name" name="name" placeholder="First &amp; last" autocomplete="name" required></div>
           <div><label for="f-email">Email</label><input id="f-email" type="email" name="email" placeholder="you@email.com" autocomplete="email" required></div>
-          <div><label for="f-phone">Mobile</label><input id="f-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel" required>
-            <p class="hint">I may call or text about your questions. Reply STOP anytime.</p></div>
+          <div><label for="f-phone">Mobile</label><input id="f-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel" required></div>
           <div><label for="f-addr">Home address</label><input id="f-addr" name="address" placeholder="123 Main St, Brentwood" autocomplete="street-address" required></div>
           <div><label for="f-plan">What&#39;s on your mind?</label>
             <select id="f-plan" name="plans" required>
